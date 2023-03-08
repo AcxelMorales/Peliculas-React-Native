@@ -5,13 +5,19 @@ import {IMovieData} from '../interfaces/Imovie';
 
 interface Props {
   movie: IMovieData;
+  height?: number;
+  width?: number;
 }
 
-const CardMovie = ({movie: {poster_path}}: Props) => {
+const CardMovie = ({movie: {poster_path}, height = 420, width = 300}: Props) => {
   const uri = `https://image.tmdb.org/t/p/w500${poster_path}`;
 
   return (
-    <View style={styles.imageContainerMain}>
+    <View style={{
+      width,
+      height,
+      marginHorizontal: 8
+    }}>
       <View style={styles.imageContainer}>
         <Image
           source={{
@@ -27,10 +33,6 @@ const CardMovie = ({movie: {poster_path}}: Props) => {
 export default CardMovie;
 
 const styles = StyleSheet.create({
-  imageContainerMain: {
-    width: 300,
-    height: 420,
-  },
   imageContainer: {
     flex: 1,
     borderRadius: 18,
