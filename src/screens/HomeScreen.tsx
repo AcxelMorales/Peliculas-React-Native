@@ -1,12 +1,16 @@
 import React from 'react';
-import {ActivityIndicator, Text, View} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import useMovies from '../hooks/useMovies';
 
+import CardMovie from '../components/CardMovie';
+
 const HomeScreen = () => {
   const {moviesInTheater, isLoading} = useMovies();
+  const {top} = useSafeAreaInsets();
 
-  if (true) {
+  if (isLoading) {
     return (
       <View
         style={{
@@ -17,13 +21,16 @@ const HomeScreen = () => {
         <ActivityIndicator color="red" size={100} />
       </View>
     );
+  } else {
+    return (
+      <View
+        style={{
+          marginTop: top + 20,
+        }}>
+        <CardMovie movie={moviesInTheater[1]} />
+      </View>
+    );
   }
-
-  return (
-    <View>
-      <Text>HomeScreen</Text>
-    </View>
-  );
 };
 
 export default HomeScreen;
