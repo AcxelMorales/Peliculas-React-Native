@@ -1,5 +1,7 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+
+import {useNavigation} from '@react-navigation/core';
 
 import {IMovieData} from '../interfaces/Imovie';
 
@@ -9,15 +11,20 @@ interface Props {
   width?: number;
 }
 
-const CardMovie = ({movie: {poster_path}, height = 420, width = 300}: Props) => {
-  const uri = `https://image.tmdb.org/t/p/w500${poster_path}`;
+const CardMovie = ({movie, height = 420, width = 300}: Props) => {
+  const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+  const navigation = useNavigation();
 
   return (
-    <View style={{
-      width,
-      height,
-      marginHorizontal: 8
-    }}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('DetailScreen' as never, movie as never)}
+      activeOpacity={0.8}
+      style={{
+        width,
+        height,
+        marginHorizontal: 8,
+      }}>
       <View style={styles.imageContainer}>
         <Image
           source={{
@@ -26,7 +33,7 @@ const CardMovie = ({movie: {poster_path}, height = 420, width = 300}: Props) => 
           style={styles.image}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
