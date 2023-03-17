@@ -18,12 +18,16 @@ const CardMovie = ({movie, height = 420, width = 300}: Props) => {
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('DetailScreen' as never, movie as never)}
+      onPress={() =>
+        navigation.navigate('DetailScreen' as never, movie as never)
+      }
       activeOpacity={0.8}
       style={{
         width,
         height,
-        marginHorizontal: 8,
+        marginHorizontal: 2,
+        paddingBottom: 20,
+        paddingHorizontal: 7,
       }}>
       <View style={styles.imageContainer}>
         <Image
