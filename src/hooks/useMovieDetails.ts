@@ -6,6 +6,7 @@ import {MovieFull, Credits, Cast} from '../interfaces/Imovie';
 
 interface MovieDetails {
   cast: Cast[];
+  crew: Cast[];
   isLoading: boolean;
   movieFull?: MovieFull;
 }
@@ -15,13 +16,14 @@ export const useMovieDetails = (movieId: number) => {
     isLoading: true,
     movieFull: undefined,
     cast: [],
+    crew: [],
   });
 
   const getMovieDetails = async () => {
     const movieDetailsPromise = movieDB.get<MovieFull>(`/${movieId}`);
     const creditsPromise = movieDB.get<Credits>(`/${movieId}/credits`);
 
-    const [{data}, {data: {cast}}] = await Promise.all([
+    const [{data}, {data: {cast, crew}}] = await Promise.all([
       movieDetailsPromise,
       creditsPromise,
     ]);
@@ -30,6 +32,7 @@ export const useMovieDetails = (movieId: number) => {
       isLoading: false,
       movieFull: data,
       cast,
+      crew,
     });
   };
 

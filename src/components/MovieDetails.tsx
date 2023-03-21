@@ -1,23 +1,27 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import currencyFormatter from 'currency-formatter';
 
 import {MovieFull, Cast} from '../interfaces/Imovie';
 
+import {CastItem} from './CastItem';
+
 interface Props {
   movieFull: MovieFull;
   cast: Cast[];
+  crew: Cast[];
 }
 
 export const MovieDetails = ({
   movieFull: {vote_average, genres, overview, budget},
   cast,
+  crew,
 }: Props) => {
   return (
     <>
-      <View style={{marginHorizontal: 20, marginTop: 10}}>
+      <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
           <Icon name="star-outline" color="grey" size={16} />
           <Text> {vote_average.toFixed(1)}</Text>
@@ -27,20 +31,50 @@ export const MovieDetails = ({
         </View>
 
         <View>
-          <Text style={{fontSize: 23, marginTop: 10, fontWeight: 'bold'}}>
-            Historia
-          </Text>
-          <Text style={{fontSize: 16}}>{overview}</Text>
-          <Text style={{fontSize: 23, marginTop: 10, fontWeight: 'bold'}}>
-            Presupuesto
-          </Text>
-          <Text style={{fontSize: 18}}>
+          <Text style={styles.title}>Historia</Text>
+          <Text style={styles.text}>{overview}</Text>
+
+          <Text style={styles.title}>Presupuesto</Text>
+          <Text style={styles.text}>
             {currencyFormatter.format(budget, {
               code: 'USD',
             })}
           </Text>
+
+          <Text style={styles.title}>Actores</Text>
+          <FlatList
+            data={cast}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => <CastItem actor={item} item={true} />}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+
+          <Text style={styles.title}>Equipo</Text>
+          <FlatList
+            data={crew}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => <CastItem actor={item} item={false} />}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
         </View>
       </View>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+    marginTop: 10,
+  },
+  title: {
+    fontSize: 23,
+    marginTop: 10,
+    fontWeight: 'bold',
+  },
+  text: {
+    fontSize: 16,
+  },
+});
