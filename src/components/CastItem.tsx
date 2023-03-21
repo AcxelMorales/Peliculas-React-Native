@@ -16,7 +16,16 @@ export const CastItem = ({
 
   return (
     <View style={styles.container}>
-      {profile_path && <Image source={{uri}} style={styles.image} />}
+      {profile_path ? (
+        <Image source={{uri}} style={styles.image} />
+      ) : (
+        <Image
+          source={{
+            uri: 'https://www.charlotteathleticclub.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png',
+          }}
+          style={styles.image}
+        />
+      )}
       <View style={styles.textContainer}>
         <Text style={styles.name}>{name}</Text>
         {item ? (
