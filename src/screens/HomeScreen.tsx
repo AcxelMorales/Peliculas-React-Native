@@ -9,6 +9,7 @@ import useMovies from '../hooks/useMovies';
 
 import CardMovie from '../components/CardMovie';
 import HorizontalSlider from '../components/HorizontalSlider';
+import {GradientBackground} from '../components/GradientBackground';
 
 const {width: windowWidth} = Dimensions.get('window');
 
@@ -29,23 +30,25 @@ const HomeScreen = () => {
     );
   } else {
     return (
-      <View style={{marginTop: top + 20}}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{height: 440}}>
-            <Carousel
-              data={nowPlaying}
-              renderItem={({item}: any) => <CardMovie movie={item} />}
-              sliderWidth={windowWidth}
-              itemWidth={300}
-              inactiveSlideOpacity={0.9}
-            />
-          </View>
+      <GradientBackground>
+        <View style={{marginTop: top + 20}}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={{height: 440}}>
+              <Carousel
+                data={nowPlaying}
+                renderItem={({item}: any) => <CardMovie movie={item} />}
+                sliderWidth={windowWidth}
+                itemWidth={300}
+                inactiveSlideOpacity={0.9}
+              />
+            </View>
 
-          <HorizontalSlider movies={topRated} title="Top rated" />
-          <HorizontalSlider movies={upcoming} title="Upcoming" />
-          <HorizontalSlider movies={popular} title="Popular" />
-        </ScrollView>
-      </View>
+            <HorizontalSlider movies={topRated} title="Top rated" />
+            <HorizontalSlider movies={upcoming} title="Upcoming" />
+            <HorizontalSlider movies={popular} title="Popular" />
+          </ScrollView>
+        </View>
+      </GradientBackground>
     );
   }
 };
