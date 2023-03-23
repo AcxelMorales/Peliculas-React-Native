@@ -57,6 +57,7 @@ export const MovieDetails = ({
             renderItem={({item}) => <CastItem actor={item} item={false} />}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
+            style={styles.mb_50}
           />
         </View>
       </View>
@@ -77,4 +78,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
   },
+  mb_50: {
+    marginBottom: 50,
+  }
 });
