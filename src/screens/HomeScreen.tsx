@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, {useContext, useEffect} from 'react';
 
 import {ActivityIndicator, Dimensions, View, ScrollView} from 'react-native';
 
@@ -10,9 +10,9 @@ import useMovies from '../hooks/useMovies';
 import CardMovie from '../components/CardMovie';
 import HorizontalSlider from '../components/HorizontalSlider';
 import {GradientBackground} from '../components/GradientBackground';
-import { getPosterColorsHelper } from '../helpers/index';
+import {getPosterColorsHelper} from '../helpers/index';
 
-import { GradientContext } from '../context/GradientContext';
+import {GradientContext} from '../context/GradientContext';
 
 const {width: windowWidth} = Dimensions.get('window');
 
@@ -30,9 +30,13 @@ const HomeScreen = () => {
 
     setMainColors({
       primary: primary?.toString()!,
-      secondary: secondary?.toString()!
-    })
+      secondary: secondary?.toString()!,
+    });
   };
+
+  useEffect(() => {
+    if (nowPlaying.length > 0) getPosterColors(0);
+  }, [nowPlaying]);
 
   if (isLoading) {
     return (
